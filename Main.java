@@ -6,8 +6,8 @@ public class Main {
     private static Random random = new Random();
 
     private static int MAX_RIDERS = 50;
-    private static final float arrivalTimeBusses = 20f * 60 * 10; //10->1000
-    private static final float arrivalTimeRiders = 30f * 10; //10->1000
+    private static final float arrivalTimeBusses = 20 * 60 * 10; //10->1000
+    private static final float arrivalTimeRiders = 30 * 10; //10->1000
 
     private static int riders = 0;
     private static final Semaphore mutex = new Semaphore(1);
