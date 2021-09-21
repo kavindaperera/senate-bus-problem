@@ -1,3 +1,6 @@
+package senatebus;
+
+
 public class Rider extends Thread {
 
     private final int id;
@@ -16,7 +19,7 @@ public class Rider extends Thread {
 
                 Main.getMutexSemaphore().acquire();
                     Main.incrementRiders();
-                    System.out.println("Rider " + this.id + " is Waiting");
+                    System.out.println("senatebus.Rider " + this.id + " is Waiting");
                 Main.getMutexSemaphore().release();
 
                 Main.getBusSemaphore().acquire();
@@ -39,7 +42,7 @@ public class Rider extends Thread {
     }
 
     private void boardBus() {
-        System.out.println("Rider " + this.id + " Boarded");
+        System.out.println("senatebus.Rider " + this.id + " Boarded");
     }
 
 
