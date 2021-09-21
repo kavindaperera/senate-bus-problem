@@ -8,8 +8,8 @@ public class Main {
     private static Random random = new Random();
 
     private static int MAX_RIDERS = 50;
-    private static final float arrivalTimeBusses = 20 * 60 * 100; //10->1000
-    private static final float arrivalTimeRiders = 30 * 100; //10->1000
+    private static final float arrivalTimeBusses = 20 * 60 * 10; //10->1000
+    private static final float arrivalTimeRiders = 30 * 10; //10->1000
 
     private static int riders = 0;
     private static final Semaphore mutex = new Semaphore(1);
@@ -61,7 +61,7 @@ public class Main {
         public void run() {
             super.run();
 
-            System.out.println("senatebus.Rider Creator Started...");
+            System.out.println("Rider Creator Started...");
 
             while (!Thread.currentThread().isInterrupted()) {
 
@@ -87,7 +87,7 @@ public class Main {
         public void run() {
             super.run();
 
-            System.out.println("senatebus.Bus Creator Started...");
+            System.out.println("Bus Creator Started...");
 
             while (!Thread.currentThread().isInterrupted()) {
 

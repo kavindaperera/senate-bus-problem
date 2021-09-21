@@ -16,7 +16,7 @@ public class Bus extends Thread {
 
             Main.getMutexSemaphore().acquire();
 
-            System.out.println("senatebus.Bus " + this.id + " Arrived");
+            System.out.println("Bus " + this.id + " Arrived");
             System.out.println("Waiting for " + Main.getRiders() + " riders");
 
             if (Main.getRiders() > 0) {
@@ -35,6 +35,6 @@ public class Bus extends Thread {
     }
 
     private void depart() {
-        System.out.println("senatebus.Bus " + this.id + " Departed");
+        System.out.println("Bus " + this.id + " Departed");
     }
 }
