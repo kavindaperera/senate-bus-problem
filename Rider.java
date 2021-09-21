@@ -13,16 +13,16 @@ public class Rider extends Thread {
         try {
 
             Main.getMultiplexSemaphore().acquire();
-            Main.getMutexSemaphore().acquire();
-            Main.incrementRiders();
-            Main.getMutexSemaphore().release();
 
-            System.out.println("Rider " + this.id + " is Waiting");
+                Main.getMutexSemaphore().acquire();
+                    Main.incrementRiders();
+                    System.out.println("Rider " + this.id + " is Waiting");
+                Main.getMutexSemaphore().release();
 
-            Main.getBusSemaphore().acquire();
+                Main.getBusSemaphore().acquire();
             Main.getMultiplexSemaphore().release();
 
-            System.out.println("Rider " + this.id + " is Boarding");
+            boardBus();
 
             Main.decrementRiders();
 
@@ -36,6 +36,11 @@ public class Rider extends Thread {
             e.printStackTrace();
         }
 
-
     }
+
+    private void boardBus() {
+        System.out.println("Rider " + this.id + " Boarded");
+    }
+
+
 }

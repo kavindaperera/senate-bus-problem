@@ -15,20 +15,24 @@ public class Bus extends Thread {
             Main.getMutexSemaphore().acquire();
 
             System.out.println("Bus " + this.id + " Arrived");
+            System.out.println("Waiting for " + Main.getRiders() + " riders");
 
             if (Main.getRiders() > 0) {
-                System.out.println("Waiting for " + Main.getRiders() + " riders");
                 Main.getBusSemaphore().release();
                 Main.getAllBoardSemaphore().acquire();
             }
 
             Main.getMutexSemaphore().release();
 
-            System.out.println("Bus " + this.id + " Departed");
+            depart();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void depart() {
+        System.out.println("Bus " + this.id + " Departed");
     }
 }
