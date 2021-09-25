@@ -69,7 +69,7 @@ public class Main {
                 riderNumber++;
 
                 try {
-                    Thread.sleep(getExpoDistributedTimeFromMeanTime(Main.arrivalTimeRiders));
+                    Thread.sleep(exponential(Main.arrivalTimeRiders));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -92,7 +92,7 @@ public class Main {
             while (!Thread.currentThread().isInterrupted()) {
 
                 try {
-                    Thread.sleep(getExpoDistributedTimeFromMeanTime(Main.arrivalTimeBusses));
+                    Thread.sleep(exponential(Main.arrivalTimeBusses));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -105,7 +105,7 @@ public class Main {
         }
     }
 
-    private static long getExpoDistributedTimeFromMeanTime(float arrivalMeanTime) { // inverse transform sampling
+    private static long exponential(float arrivalMeanTime) { // inverse transform sampling
         float lambda = 1 / arrivalMeanTime; // rate
         float p = random.nextFloat(); // generate uniform random number in [0,1]
         return Math.round(Math.log(1 - p) / (-lambda)); // return exponentially distributed value
