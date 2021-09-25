@@ -11,11 +11,11 @@ public class Main {
     private static final float arrivalTimeBusses = 20 * 60 * 10; //10->1000
     private static final float arrivalTimeRiders = 30 * 10; //10->1000
 
-    private static int riders = 0;
-    private static final Semaphore mutex = new Semaphore(1);
-    private static final Semaphore multiplex = new Semaphore(MAX_RIDERS);
-    private static final Semaphore bus = new Semaphore(0);
-    private static final Semaphore allBoard = new Semaphore(0);
+    private static int riders = 0;                                        // to keep track of the no. of waiting riders
+    private static final Semaphore mutex = new Semaphore(1);       // to protect the riders variable from concurrent of riders
+    private static final Semaphore multiplex = new Semaphore(MAX_RIDERS); // limit the maximum number of riders allowed in the waiting area
+    private static final Semaphore bus = new Semaphore(0);         // for the riders to wait until a bus arrives
+    private static final Semaphore allBoard = new Semaphore(0);    // for the bus to wait until all the riders in the waiting area are boarded
 
     public static void main(String[] args) {
 
@@ -52,10 +52,11 @@ public class Main {
         riders--;
     }
 
-
+    // This class is a support class to create Rider threads with their
+    // inter-arrival times following an exponential distribution of given mean
     static class RiderCreator extends Thread {
 
-        int riderNumber = 1;
+        int riderNumber = 1;       // to give a unique identifier to a bus
 
         @Override
         public void run() {
@@ -65,11 +66,12 @@ public class Main {
 
             while (!Thread.currentThread().isInterrupted()) {
 
-                new Rider(riderNumber).start();
+                new Rider(riderNumber).start();     // create a new rider at next arrival time
                 riderNumber++;
 
                 try {
-                    Thread.sleep(exponential(Main.arrivalTimeRiders));
+                    Thread.sleep(exponential(Main.arrivalTimeRiders));  // sleep the thread for a certain time (inter arrival time)
+                                                                        // until the arrival time of the next rider occurs
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -79,9 +81,11 @@ public class Main {
         }
     }
 
+    // This class is a support class to create Bus threads with their
+    // inter-arrival times following an exponential distribution of given mean
     static class BusCreator extends Thread {
 
-        int busNumber = 1;
+        int busNumber = 1;      // to give a unique identifier to a bus
 
         @Override
         public void run() {
@@ -92,12 +96,13 @@ public class Main {
             while (!Thread.currentThread().isInterrupted()) {
 
                 try {
-                    Thread.sleep(exponential(Main.arrivalTimeBusses));
+                    Thread.sleep(exponential(Main.arrivalTimeBusses)); // sleep the thread for a certain time (inter arrival time)
+                                                                       // until the arrival time of the next bus occurs
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                new Bus(busNumber).start();
+                new Bus(busNumber).start();    // create a new bus at next arrival time
                 busNumber++;
 
             }
