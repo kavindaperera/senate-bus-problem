@@ -14,14 +14,14 @@ public class Bus extends Thread {
 
         try {
 
-            Main.getMutexSemaphore().acquire();      // get the mutex semaphore so that riders can't increment their count after the bus arrives
+            Main.getMutexSemaphore().acquire();          // get the mutex semaphore so that riders can't increment their count after the bus arrives
 
-            System.out.println("Bus " + this.id + " Arrived");
-            System.out.println("Waiting for " + Main.getRiders() + " riders");
+            System.out.println("Bus " + this.id + " arrived at the bus stop");
+            System.out.println("Waiting for " + Main.getRiders() + " riders to board the bus");
 
             if (Main.getRiders() > 0) {
                 Main.getBusSemaphore().release();        // waking up one of the blocked rider threads
-                Main.getAllBoardSemaphore().acquire();   // waiting until all the waiting riders board to the bus
+                Main.getAllBoardSemaphore().acquire();   // waiting until all the riders in the boarding area board to the bus
             }
 
             Main.getMutexSemaphore().release();          // release the mutex semaphore when the bus is ready to leave (all waiting riders have boarded)
@@ -35,6 +35,6 @@ public class Bus extends Thread {
     }
 
     private void depart() {
-        System.out.println("Bus " + this.id + " Departed");
+        System.out.println("Bus " + this.id + " departed the bus stop");
     }
 }

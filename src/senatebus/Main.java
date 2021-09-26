@@ -11,11 +11,11 @@ public class Main {
     private static final float arrivalTimeBusses = 20 * 60 * 10; //10->1000
     private static final float arrivalTimeRiders = 30 * 10; //10->1000
 
-    private static int riders = 0;                                        // to keep track of the no. of waiting riders
+    private static int riders = 0;                                        // to keep track of the no. of riders waiting in the boarding area
     private static final Semaphore mutex = new Semaphore(1);       // to protect the riders variable from concurrent of riders
-    private static final Semaphore multiplex = new Semaphore(MAX_RIDERS); // limit the maximum number of riders allowed in the waiting area
+    private static final Semaphore multiplex = new Semaphore(MAX_RIDERS); // limit the maximum number of riders allowed in the boarding area
     private static final Semaphore bus = new Semaphore(0);         // for the riders to wait until a bus arrives
-    private static final Semaphore allBoard = new Semaphore(0);    // for the bus to wait until all the riders in the waiting area are boarded
+    private static final Semaphore allBoard = new Semaphore(0);    // for the bus to wait until all the riders in the boarding area are boarded
 
     public static void main(String[] args) {
 
