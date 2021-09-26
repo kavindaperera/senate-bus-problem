@@ -8,8 +8,8 @@ public class Main {
     private static final Random random = new Random();
 
     private static final int MAX_RIDERS = 50;
-    private static final float arrivalTimeBusses = 20 * 60 * 10; //10->1000
-    private static final float arrivalTimeRiders = 30 * 10; //10->1000
+    private static final float arrivalTimeBusses = 20 * 60 * 10; // TODO : 10->1000
+    private static final float arrivalTimeRiders = 30 * 10; //TODO : 10->1000
 
     private static int riders = 0;                                        // to keep track of the no. of riders waiting in the boarding area
     private static final Semaphore mutex = new Semaphore(1);       // to protect the riders variable from concurrent of riders
@@ -18,6 +18,8 @@ public class Main {
     private static final Semaphore allBoard = new Semaphore(0);    // for the bus to wait until all the riders in the boarding area are boarded
 
     public static void main(String[] args) {
+
+        System.out.println("Simulation Started...");
 
         new RiderCreator().start();
         new BusCreator().start();
@@ -62,8 +64,6 @@ public class Main {
         public void run() {
             super.run();
 
-            System.out.println("Rider Creator Started...");
-
             while (!Thread.currentThread().isInterrupted()) {
 
                 new Rider(riderNumber).start();     // create a new rider at next arrival time
@@ -90,8 +90,6 @@ public class Main {
         @Override
         public void run() {
             super.run();
-
-            System.out.println("Bus Creator Started...");
 
             while (!Thread.currentThread().isInterrupted()) {
 
