@@ -58,7 +58,7 @@ public class Main {
     // inter-arrival times following an exponential distribution of given mean
     static class RiderCreator extends Thread {
 
-        int riderNumber = 1;       // to give a unique identifier to a bus
+        int riderNumber = 1;       // to give a unique identifier to a rider
 
         @Override
         public void run() {
